@@ -11,8 +11,6 @@
         android:layout_height="wrap_content"
         android:text="Request Json Array"
         android:id="@+id/JsonArrayButton"
-        android:layout_below="@+id/JsonObjButton"
-        android:onClick="makeJsonArrayRequest"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp" />
 

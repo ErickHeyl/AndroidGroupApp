@@ -1,8 +1,6 @@
 package layout;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
@@ -12,9 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,21 +19,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.mars.httpapp.AppController;
-import com.example.mars.httpapp.MainActivity;
 import com.example.mars.httpapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link fragment_page3.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link fragment_page3#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class fragment_page3 extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,17 +57,6 @@ public class fragment_page3 extends Fragment {
     }
 
 
-
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_page.
-     */
-    // TODO: Rename and change types and number of parameters
     public static fragment_page3 newInstance(int page) {
         fragment_page3 fragment = new fragment_page3();
         Bundle args = new Bundle();
@@ -115,7 +92,7 @@ public class fragment_page3 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment_page3, container, false);
-        RelativeLayout frameLayout = (RelativeLayout) view;
+        //RelativeLayout frameLayout = (RelativeLayout) view;
         //textView.setText("Fragment3 #" + mPage);
         btnMakeArrayRequest = (Button) view.findViewById(R.id.JsonArrayButton);
         //ScrollView scrollView = (ScrollView) view.findViewById(R.id.scrollview);
@@ -155,6 +132,8 @@ public class fragment_page3 extends Fragment {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+
+
     /**
      * Method to make json array request where response starts with [
      * */
@@ -174,8 +153,7 @@ public class fragment_page3 extends Fragment {
                             jsonResponse = "";
                             for (int i = 0; i < response.length(); i++) {
 
-                                JSONObject person = (JSONObject) response
-                                        .get(i);
+                                JSONObject person = (JSONObject) response.get(i);
 
                                 String name = person.getString("department") + person.getString("class_number");
                                 String date = person.getString("date");
@@ -196,6 +174,7 @@ public class fragment_page3 extends Fragment {
 
                             txtResponse.setText(jsonResponse);
                             AppController.getInstance().grouplist = jsonResponse;
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getActivity().getApplicationContext(),

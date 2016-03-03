@@ -1,5 +1,48 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center" />
+    android:background="@color/primaryBackground"
+    tools:context="layout.fragment_page3">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentTop="true"
+        android:id="@+id/linearLayout">
+    <ImageView
+        android:layout_width="91dp"
+        android:layout_height="120dp"
+        android:id="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/blank_profile"
+        android:padding="@dimen/abc_action_bar_content_inset_material"
+        android:textAlignment="center"
+        android:paddingLeft="@dimen/abc_action_bar_content_inset_material" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/userinfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="false"
+                android:layout_alignParentEnd="false"
+                android:textAlignment="center"
+                android:padding="@dimen/abc_text_size_body_1_material" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <ListView
+        android:id="@+id/list"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentBottom="true">
+    </ListView>
+</RelativeLayout>
 

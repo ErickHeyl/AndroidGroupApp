@@ -29,10 +29,12 @@ public class fragment_page2 extends Fragment {
     private static final String ARG_PAGE = "ARG_PAGE";
 
     // json object response url
-    private String urlJsonObj = "http://10.0.2.2:3000/users/1";
+    private String urlJsonObj = "https://studygroupformer.herokuapp.com/users/1";
 
     // json array response url
-    private String urlJsonArry = "http://10.0.2.2:3000/studygroups";
+    private String urlJsonArry = "https://studygroupformer.herokuapp.com/studygroups";
+
+
 
     // Progress dialog
     private ProgressDialog pDialog;
@@ -41,6 +43,7 @@ public class fragment_page2 extends Fragment {
 
     // temporary string to show the parsed response
     private String jsonResponse;
+    private Button btnMakeArrayRequest;
     private Button btnMakeObjectRequest;
     // TODO: Rename and change types of parameters
     private int mPage;
@@ -52,14 +55,7 @@ public class fragment_page2 extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_page.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static fragment_page2 newInstance(int page) {
         fragment_page2 fragment = new fragment_page2();

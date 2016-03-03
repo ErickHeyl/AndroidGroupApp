@@ -11,7 +11,7 @@ import android.util.Log;
  */
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "Profile", "Search", "Create" };
+    private String tabTitles[] = new String[] { "Home", "Search", "Create" };
     private Context context;
 
     public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {

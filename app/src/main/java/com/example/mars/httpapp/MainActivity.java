@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
+
+
        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
        // setSupportActionBar(toolbar);
         /*
@@ -109,62 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Method to make json object request where json response starts wtih {
-     * */
-    private void makeJsonObjectRequest() {
 
-        showpDialog();
-
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(com.android.volley.Request.Method.GET,
-                urlJsonObj, null, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d(TAG, response.toString());
-
-                try {
-                    // Parsing json object response
-                    // response will be a json object
-                    String name = response.getString("Firstname") + " " + response.getString("Lastname");
-                    String email = response.getString("email");
-                    String id = response.getString("id");
-                    //JSONObject phone = response.getJSONObject("phone");
-                    //String home = phone.getString("home");
-                   // String mobile = phone.getString("mobile");
-
-                    jsonResponse = "";
-                    jsonResponse += "Name: " + name + "\n\n";
-                    jsonResponse += "Email: " + email + "\n\n";
-                    jsonResponse += "ID: " + id + "\n\n";
-                    //jsonResponse += "Mobile: " + mobile + "\n\n";
-
-                    txtResponse.setText(jsonResponse);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),
-                            "Error: " + e.getMessage(),
-                            Toast.LENGTH_LONG).show();
-                }
-                hidepDialog();
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-                // hide the progress dialog
-                hidepDialog();
-            }
-        });
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(jsonObjReq);
-    }
-    //end getjsonobj
 
 
 
