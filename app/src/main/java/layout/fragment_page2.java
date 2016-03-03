@@ -98,4 +98,5 @@ public class fragment_page2 extends Fragment {
     }
 
 
+
 }

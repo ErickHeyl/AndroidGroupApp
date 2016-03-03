@@ -32,10 +32,10 @@ public class fragment_page3 extends Fragment {
     private static final String ARG_PAGE = "ARG_PAGE";
 
     // json object response url
-    private String urlJsonObj = "http://10.0.2.2:3000/users/1";
+    private String urlJsonObj = "https://studygroupformer.herokuapp.com/1";
 
     // json array response url
-    private String urlJsonArry = "http://10.0.2.2:3000/studygroups";
+    private String urlJsonArry = "https://studygroupformer.herokuapp.com/studygroups";
 
     // Progress dialog
     private ProgressDialog pDialog;
