@@ -33,25 +33,11 @@ public class AppController extends Application {
     public String grouplist;
     public HashMap<String,String> user = new HashMap<String,String>();
     public User AppUser;
+    public ArrayList<StudyGroup> AppUserGroups = new ArrayList<StudyGroup>();
 
     private RequestQueue mRequestQueue;
 
 
-    public class StudyGroup{
-        int id;
-        String department;
-        int classnumber;
-        String time;
-        String description;
-        public StudyGroup(int ID, String dept, int classnum, String t, String descr){
-            this.id = ID;
-            this.department = dept;
-            this.classnumber = classnum;
-            this.time = t;
-            this.description = descr;
-
-        }
-    }
 
     public ArrayList<HashMap<String,String>> usergroups = new ArrayList<HashMap<String,String>>();
 

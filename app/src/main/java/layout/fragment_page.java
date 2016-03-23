@@ -25,6 +25,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.mars.httpapp.AppController;
 
 import com.example.mars.httpapp.R;
+import com.example.mars.httpapp.StudyGroup;
 import com.example.mars.httpapp.User;
 
 import org.json.JSONArray;
@@ -125,8 +126,10 @@ public class fragment_page extends Fragment {
             }
             ArrayAdapter<HashMap<String,String>> adapter = new ArrayAdapter<HashMap<String,String>>(getActivity().getApplicationContext(),
                     android.R.layout.simple_list_item_1,  AppController.getInstance().usergroups);
+            ArrayAdapter<StudyGroup> adapter2 = new ArrayAdapter<StudyGroup>(getActivity().getApplicationContext(),
+                    android.R.layout.simple_list_item_1,  AppController.getInstance().AppUserGroups);
             // Assign adapter to ListView
-            listView.setAdapter(adapter);
+            listView.setAdapter(adapter2);
         }
 
 
@@ -257,27 +260,33 @@ public class fragment_page extends Fragment {
                             // Parsing json array response
                             // loop through each json object
                             jsonResponse = "";
-                            for (int i = 0; i < response.length(); i++) {
+                            for (int i = 0; (i < response.length()); i++) {
 
-                                JSONObject group = (JSONObject) response.getJSONObject(i);
+                                if(response.getJSONObject(i) != null ) {
+                                    JSONObject group = (JSONObject) response.getJSONObject(i);
 
 
-                                String department = group.getString("department") + group.getString("class_number");
-                                String date = group.getString("date");
-                                String time = group.getString("time");
-                                String description = group.getString("description");
-                                String id = group.getString("id");
+                                    String department = group.getString("department");
+                                    int classno = group.getInt("class_number");
+                                    String date = group.getString("date");
+                                    String time = group.getString("time");
+                                    String description = group.getString("description");
+                                    int id = group.getInt("id");
 
-                                HashMap<String, String> joinedgroup = new HashMap<String, String>();
-                                joinedgroup.put("department", department);
-                                joinedgroup.put("date", date);
-                                joinedgroup.put("time", time);
-                                joinedgroup.put("description", description);
-                                joinedgroup.put("id", id);
-                                AppController.getInstance().usergroups.add(joinedgroup);
-                                //Log.i("outputmsg", AppController.getInstance().usergroups.get(0).get("description"));
-                                //jsonResponse += "Mobile: " + mobile + "\n\n\n";
+                                    HashMap<String, String> joinedgroup = new HashMap<String, String>();
+                                    joinedgroup.put("department", department);
+                                    joinedgroup.put("date", date);
+                                    joinedgroup.put("time", time);
+                                    joinedgroup.put("description", description);
+                                    joinedgroup.put("id", String.valueOf(id));
+                                    AppController.getInstance().usergroups.add(joinedgroup);
+                                    //Log.i("outputmsg", AppController.getInstance().usergroups.get(0).get("description"));
+                                    //jsonResponse += "Mobile: " + mobile + "\n\n\n";
 
+
+                                    //appcontroller logic
+                                    AppController.getInstance().AppUserGroups.add(new StudyGroup(id, department, classno, time, description, date));
+                                }
                             }
 
                             //txtResponse.setText(jsonResponse);
