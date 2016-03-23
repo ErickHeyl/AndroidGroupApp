@@ -24,6 +24,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.mars.httpapp.AppController;
 
+import com.example.mars.httpapp.GroupAdapter;
 import com.example.mars.httpapp.R;
 import com.example.mars.httpapp.StudyGroup;
 import com.example.mars.httpapp.User;
@@ -104,12 +105,12 @@ public class fragment_page extends Fragment {
         {
             userinfo.setText(user.get("name") + "\n\n" + user.get("email"));
         }
-        else if(AppController.getInstance().grouplist != null)
+        else if(AppController.getInstance().AppUserGroups.size() > 0)
         {
-            ArrayAdapter<HashMap<String,String>> adapter = new ArrayAdapter<HashMap<String,String>>(getActivity().getApplicationContext(),
-                    android.R.layout.simple_list_item_1,  AppController.getInstance().usergroups);
+            GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
+                    AppController.getInstance().AppUserGroups);
             // Assign adapter to ListView
-            listView.setAdapter(adapter);
+            listView.setAdapter(adapter2);
         }
         else {
 
@@ -126,8 +127,8 @@ public class fragment_page extends Fragment {
             }
             ArrayAdapter<HashMap<String,String>> adapter = new ArrayAdapter<HashMap<String,String>>(getActivity().getApplicationContext(),
                     android.R.layout.simple_list_item_1,  AppController.getInstance().usergroups);
-            ArrayAdapter<StudyGroup> adapter2 = new ArrayAdapter<StudyGroup>(getActivity().getApplicationContext(),
-                    android.R.layout.simple_list_item_1,  AppController.getInstance().AppUserGroups);
+            GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
+                    AppController.getInstance().AppUserGroups);
             // Assign adapter to ListView
             listView.setAdapter(adapter2);
         }
