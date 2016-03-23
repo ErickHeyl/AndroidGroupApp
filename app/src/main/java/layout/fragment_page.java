@@ -25,6 +25,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.mars.httpapp.AppController;
 
 import com.example.mars.httpapp.R;
+import com.example.mars.httpapp.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,7 +48,7 @@ public class fragment_page extends Fragment {
     private int mPage;
     //private String mParam2;
 
-    // Progress dialog
+    // Progress dialogs
     private ProgressDialog pDialog;
 
     private TextView userinfo;
@@ -181,8 +182,17 @@ public class fragment_page extends Fragment {
                     // Parsing json object response
                     // response will be a json object
                     String name = response.getString("Firstname") + " " + response.getString("Lastname");
+
+
+
+                    //appcontroler logic
+                    String uname = response.getString("Username");
+                    int id = response.getInt("id");
                     String email = response.getString("email");
-                    String id = response.getString("id");
+                    String first = response.getString("Firstname");
+                    String last =  response.getString("Lastname");
+                    Boolean isadmin = response.getBoolean("Admin");
+
                     //JSONObject phone = response.getJSONObject("phone");
                     //String home = phone.getString("home");
                     // String mobile = phone.getString("mobile");
@@ -196,6 +206,7 @@ public class fragment_page extends Fragment {
                     userinfo.setText(jsonResponse);
                     AppController.getInstance().user.put("name", name);
                     AppController.getInstance().user.put("email", email);
+                    AppController.getInstance().AppUser = new User(uname, id, email, first, last, isadmin);
 
 
                 } catch (JSONException e) {

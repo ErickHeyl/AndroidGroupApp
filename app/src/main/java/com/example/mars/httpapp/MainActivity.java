@@ -151,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
                                 jsonResponse += "Time:" + time + "\n\n";
                                 jsonResponse += "Description:" + description + "\n\n";
                                 //jsonResponse += "Mobile: " + mobile + "\n\n\n";
+                                //begin appcontroller logic
+
 
                             }
 

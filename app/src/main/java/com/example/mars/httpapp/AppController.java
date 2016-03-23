@@ -1,13 +1,22 @@
 package com.example.mars.httpapp;
 
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,25 +29,13 @@ import java.util.List;
 public class AppController extends Application {
 
     public static final String TAG = AppController.class.getSimpleName();
-
+    private ProgressDialog pDialog;
     public String grouplist;
     public HashMap<String,String> user = new HashMap<String,String>();
-    public ArrayList<HashMap<String, String>> usergroups = new ArrayList<HashMap<String, String>>();
+    public User AppUser;
+
     private RequestQueue mRequestQueue;
 
-    private class User{
-        String username;
-        JSONArray usergroups;
-
-        void User(){
-            String username = "blank";
-            int id;
-            String email;
-            String firstname;
-            String lastname;
-            Boolean isAdmin;
-        }
-    }
 
     public class StudyGroup{
         int id;
@@ -46,9 +43,22 @@ public class AppController extends Application {
         int classnumber;
         String time;
         String description;
+        public StudyGroup(int ID, String dept, int classnum, String t, String descr){
+            this.id = ID;
+            this.department = dept;
+            this.classnumber = classnum;
+            this.time = t;
+            this.description = descr;
+
+        }
     }
 
-    protected User AppUser;
+    public ArrayList<HashMap<String,String>> usergroups = new ArrayList<HashMap<String,String>>();
+
+
+
+
+
     private static AppController mInstance;
 
     @Override
@@ -85,4 +95,75 @@ public class AppController extends Application {
             mRequestQueue.cancelAll(tag);
         }
     }
+
+    //begin json methods
+
+    private void showpDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hidepDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
+            /* Method to make json object request where json response starts wtih {
+        * */
+       /* private void makeJsonObjectRequest() {
+
+            showpDialog();
+
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(com.android.volley.Request.Method.GET,
+                    urlJsonObj, null, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("response:", response.toString());
+
+                    try {
+                        // Parsing json object response
+                        // response will be a json object
+                        String name = response.getString("Firstname") + " " + response.getString("Lastname");
+                        String email = response.getString("email");
+                        String id = response.getString("id");
+                        //JSONObject phone = response.getJSONObject("phone");
+                        //String home = phone.getString("home");
+                        // String mobile = phone.getString("mobile");
+
+                        jsonResponse = "";
+                        jsonResponse +=  name + "\n\n";
+                        jsonResponse +=  email + "\n\n";
+
+                        //jsonResponse += "Mobile: " + mobile + "\n\n";
+
+                        userinfo.setText(jsonResponse);
+                        AppController.getInstance().user.put("name", name);
+                        AppController.getInstance().user.put("email", email);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity().getApplicationContext(),
+                                "Error: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                    hidepDialog();
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d("Error: ", error.getMessage());
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            error.getMessage(), Toast.LENGTH_SHORT).show();
+                    // hide the progress dialog
+                    hidepDialog();
+                }
+            });
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(jsonObjReq);
+        }*/
 }
+
+
