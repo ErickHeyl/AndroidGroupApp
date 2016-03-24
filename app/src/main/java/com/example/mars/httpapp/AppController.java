@@ -34,6 +34,7 @@ public class AppController extends Application {
     public HashMap<String,String> user = new HashMap<String,String>();
     public User AppUser;
     public ArrayList<StudyGroup> AppUserGroups = new ArrayList<StudyGroup>();
+    public ArrayList<StudyGroup> FullGroupList = new ArrayList<StudyGroup>();
 
     private RequestQueue mRequestQueue;
 

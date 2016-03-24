@@ -5,12 +5,12 @@ package com.example.mars.httpapp;
  */
 public class StudyGroup {
 
-        int id;
-        String department;
-        int classnumber;
-        String time;
-        String date;
-        String description;
+        public int id;
+        public String department;
+        public int classnumber;
+        public String time;
+        public String date;
+        public String description;
 
         public StudyGroup(int ID, String dept, int classnum, String t, String descr, String datetime){
             this.id = ID;

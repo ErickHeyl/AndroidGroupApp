@@ -6,30 +6,42 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.example.mars.httpapp.AppController;
+import com.example.mars.httpapp.GroupAdapter;
 import com.example.mars.httpapp.R;
+import com.example.mars.httpapp.StudyGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link fragment_page2.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link fragment_page2#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+
 public class fragment_page2 extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PAGE = "ARG_PAGE";
 
     // json object response url
-    private String urlJsonObj = "https://studygroupformer.herokuapp.com/users/1";
+    //private String urlJsonObj = "https://studygroupformer.herokuapp.com/users/1";
 
     // json array response url
     private String urlJsonArry = "https://studygroupformer.herokuapp.com/studygroups";
@@ -40,6 +52,7 @@ public class fragment_page2 extends Fragment {
     private ProgressDialog pDialog;
 
     private TextView txtResponse;
+
 
     // temporary string to show the parsed response
     private String jsonResponse;
@@ -85,18 +98,136 @@ public class fragment_page2 extends Fragment {
         FrameLayout frameLayout = (FrameLayout) view;
        // textView.setText("Fragment2 #" + mPage);
         //http related
-        btnMakeObjectRequest = (Button) view.findViewById(R.id.JsonObjButton);
+        btnMakeObjectRequest = (Button) view.findViewById(R.id.groupsearch);
+        btnMakeObjectRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchArrayUpdate();
+            }
+        });
+        final ListView listView = (ListView) view.findViewById(R.id.list2);
 
-        txtResponse = (TextView) view.findViewById(R.id.JsonDataView);
-        txtResponse.setMovementMethod(new ScrollingMovementMethod());
 
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Please wait...");
         pDialog.setCancelable(false);
         //end http related
+
+
+        if(AppController.getInstance().FullGroupList.size() > 0)
+        {
+            GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
+                    AppController.getInstance().FullGroupList);
+            // Assign adapter to ListView
+            listView.setAdapter(adapter2);
+        }
+        else {
+            //makeJsonObjectRequest();
+
+                makeJsonArrayRequest();
+
+           //use list data to populate the listview with studygroups
+            GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
+                    AppController.getInstance().FullGroupList);
+            // Assign adapter to ListView
+            listView.setAdapter(adapter2);
+
+
+
+        }
         return view;
     }
 
+    private void showpDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hidepDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
+
+    /**
+     * Method to make json array request where response starts with [
+     * */
+    private void makeJsonArrayRequest() {
+
+        showpDialog();
+
+        JsonArrayRequest req = new JsonArrayRequest(urlJsonArry,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d("response:", response.toString());
+
+                        try {
+                            // Parsing json array response
+                            // loop through each json object
+                            jsonResponse = "";
+                            for (int i = 0; i < response.length(); i++) {
+
+                                JSONObject group = (JSONObject) response.get(i);
+
+                                String department = group.getString("department");
+                                int classno = group.getInt("class_number");
+                                String date = group.getString("date");
+                                String time = group.getString("time");
+                                String description = group.getString("description");
+                                int id = group.getInt("id");
 
 
+                                //Log.i("outputmsg", AppController.getInstance().usergroups.get(0).get("description"));
+                                //jsonResponse += "Mobile: " + mobile + "\n\n\n";
+
+
+                                //appcontroller logic
+                                AppController.getInstance().FullGroupList.add(new StudyGroup(id, department, classno, time, description, date));
+
+                            }
+
+//                            txtResponse.setText(jsonResponse);
+                            AppController.getInstance().grouplist = jsonResponse;
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getActivity().getApplicationContext(),
+                                    "Error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+                        hidepDialog();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("Error: ", error.getMessage());
+                Toast.makeText(getActivity().getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                hidepDialog();
+
+            }
+        });
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(req);
+    }
+
+   public void searchArrayUpdate(){
+        Spinner sel = (Spinner) getActivity().findViewById(R.id.spinner);
+        String searchquerydept = sel.getSelectedItem().toString();
+        ArrayList<StudyGroup> temp = new ArrayList<StudyGroup>();
+        for(int i = 0; i <  AppController.getInstance().FullGroupList.size(); i++){
+            StudyGroup searchitem = AppController.getInstance().FullGroupList.get(i);
+            if (searchitem.department.equalsIgnoreCase(searchquerydept)){
+                temp.add(searchitem);
+            }
+        }
+        //use list data to populate the listview with studygroups
+        GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
+                temp);
+       final ListView listView = (ListView) getActivity().findViewById(R.id.list2);
+        // Assign adapter to ListView
+        listView.setAdapter(adapter2);
+    }
 }
