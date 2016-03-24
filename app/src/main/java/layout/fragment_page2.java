@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -82,12 +83,13 @@ public class fragment_page2 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mPage = getArguments().getInt(ARG_PAGE);
-            //mParam2 = getArguments().getString(ARG_PARAM2);
-
-
+        if(AppController.getInstance().FullGroupList.size() > 0)
+        {
+            AppController.getInstance().FullGroupList.clear();
+            makeJsonArrayRequest();
         }
+
+
     }
 
     @Override
@@ -95,7 +97,7 @@ public class fragment_page2 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment_page2, container, false);
-        FrameLayout frameLayout = (FrameLayout) view;
+       // FrameLayout frameLayout = (FrameLayout) view;
        // textView.setText("Fragment2 #" + mPage);
         //http related
         btnMakeObjectRequest = (Button) view.findViewById(R.id.groupsearch);
@@ -103,6 +105,13 @@ public class fragment_page2 extends Fragment {
             @Override
             public void onClick(View v) {
                 searchArrayUpdate();
+            }
+        });
+        Button refreshbtn = (Button) view.findViewById(R.id.reloadbutton);
+        refreshbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeJsonArrayRequest();
             }
         });
         final ListView listView = (ListView) view.findViewById(R.id.list2);
@@ -116,25 +125,40 @@ public class fragment_page2 extends Fragment {
 
         if(AppController.getInstance().FullGroupList.size() > 0)
         {
-            GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
-                    AppController.getInstance().FullGroupList);
-            // Assign adapter to ListView
-            listView.setAdapter(adapter2);
+            AppController.getInstance().FullGroupList.clear();
+            makeJsonArrayRequest();
         }
         else {
             //makeJsonObjectRequest();
 
                 makeJsonArrayRequest();
 
-           //use list data to populate the listview with studygroups
-            GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
-                    AppController.getInstance().FullGroupList);
-            // Assign adapter to ListView
-            listView.setAdapter(adapter2);
+
 
 
 
         }
+        // ListView Item Click Listener
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // ListView Clicked item index
+                int itemPosition = position;
+
+                // ListView Clicked item value
+                //String itemValue = (String) listView.getItemAtPosition(position);
+
+                // Show Alert
+                Toast.makeText(getActivity().getApplicationContext(),
+                        "Position :" + itemPosition + "  ListItem : ", Toast.LENGTH_LONG)
+                        .show();
+
+            }
+
+        });
         return view;
     }
 
@@ -197,7 +221,15 @@ public class fragment_page2 extends Fragment {
                         }
 
                         hidepDialog();
+                        final ListView listView = (ListView) getActivity().findViewById(R.id.list2);
+                        //use list data to populate the listview with studygroups
+                        GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
+                                AppController.getInstance().FullGroupList);
+                        // Assign adapter to ListView
+
+                        listView.setAdapter(adapter2);
                     }
+
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {

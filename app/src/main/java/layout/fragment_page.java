@@ -79,9 +79,13 @@ public class fragment_page extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mPage = getArguments().getInt(ARG_PAGE);
-            //mParam2 = getArguments().getString(ARG_PARAM2);
+        if (AppController.getInstance().AppUserGroups.size() >0) {
+            GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
+                    AppController.getInstance().AppUserGroups);
+            // Assign adapter to ListView
+            final ListView listView = (ListView) getActivity().findViewById(R.id.list);
+
+            listView.setAdapter(adapter2);
         }
     }
 
@@ -105,7 +109,7 @@ public class fragment_page extends Fragment {
         {
             userinfo.setText(user.get("name") + "\n\n" + user.get("email"));
         }
-        else if(AppController.getInstance().AppUserGroups.size() > 0)
+        if(AppController.getInstance().AppUserGroups.size() > 0)
         {
             GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
                     AppController.getInstance().AppUserGroups);
@@ -126,10 +130,10 @@ public class fragment_page extends Fragment {
                 e.printStackTrace();
             }
 
-            GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
+           /* GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
                     AppController.getInstance().AppUserGroups);
             // Assign adapter to ListView
-            listView.setAdapter(adapter2);
+            listView.setAdapter(adapter2);*/
         }
 
 
@@ -280,6 +284,7 @@ public class fragment_page extends Fragment {
 
                                     //appcontroller logic
                                     AppController.getInstance().AppUserGroups.add(new StudyGroup(id, department, classno, time, description, date));
+
                                 }
                             }
 
@@ -294,6 +299,12 @@ public class fragment_page extends Fragment {
                         }
 
                         hidepDialog();
+                        GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
+                                AppController.getInstance().AppUserGroups);
+                        // Assign adapter to ListView
+                        final ListView listView = (ListView) getActivity().findViewById(R.id.list);
+
+                        listView.setAdapter(adapter2);
                     }
                 }, new Response.ErrorListener() {
             @Override
