@@ -7,23 +7,28 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Request Json Object"
-        android:id="@+id/JsonObjButton"
-        android:onClick="makeJsonObjectRequest"
+        android:text="SEARCH"
+        android:id="@+id/groupsearch"
+
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center" />
+        android:layout_gravity="left|top" />
 
-    <TextView
+    <ListView
         android:layout_width="wrap_content"
+        android:layout_height="399dp"
+        android:id="@+id/list2"
+        android:layout_gravity="center">
+
+    </ListView>
+
+    <Spinner
+        android:layout_width="176dp"
         android:layout_height="wrap_content"
-        android:text="JsonDataView"
-        android:id="@+id/JsonDataView"
-        android:layout_marginTop="37dp"
-        android:textAlignment="center"
-        android:layout_gravity="center" />
+        android:id="@+id/spinner"
+        android:layout_gravity="right|top"
+        android:entries="@array/departments_array"/>
 </FrameLayout>

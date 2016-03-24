@@ -125,8 +125,7 @@ public class fragment_page extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            ArrayAdapter<HashMap<String,String>> adapter = new ArrayAdapter<HashMap<String,String>>(getActivity().getApplicationContext(),
-                    android.R.layout.simple_list_item_1,  AppController.getInstance().usergroups);
+
             GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
                     AppController.getInstance().AppUserGroups);
             // Assign adapter to ListView
@@ -274,13 +273,7 @@ public class fragment_page extends Fragment {
                                     String description = group.getString("description");
                                     int id = group.getInt("id");
 
-                                    HashMap<String, String> joinedgroup = new HashMap<String, String>();
-                                    joinedgroup.put("department", department);
-                                    joinedgroup.put("date", date);
-                                    joinedgroup.put("time", time);
-                                    joinedgroup.put("description", description);
-                                    joinedgroup.put("id", String.valueOf(id));
-                                    AppController.getInstance().usergroups.add(joinedgroup);
+
                                     //Log.i("outputmsg", AppController.getInstance().usergroups.get(0).get("description"));
                                     //jsonResponse += "Mobile: " + mobile + "\n\n\n";
 
