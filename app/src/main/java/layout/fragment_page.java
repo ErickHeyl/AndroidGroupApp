@@ -249,12 +249,12 @@ public class fragment_page extends Fragment {
 
         showpDialog();
 
-        //final JSONArray user = new JSONArray();
+        final JSONObject user = new JSONObject();
         final JSONObject _jsonOBJ = new JSONObject();
-        _jsonOBJ.put("email", "root@admin");
-        //user.put(_jsonOBJ);
+        _jsonOBJ.put("email", AppController.getInstance().AppUser.email);
+        user.put("user",_jsonOBJ);
 
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.POST, "https://studygroupformer.herokuapp.com/mygroups", _jsonOBJ,
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.POST, "https://studygroupformer.herokuapp.com/mygroups", user,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {

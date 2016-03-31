@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/textemail"
         android:layout_marginTop="80dp"
         android:hint="Email"
         android:layout_alignParentTop="true"
@@ -28,10 +28,10 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText4"
-        android:layout_below="@+id/editText"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
+        android:id="@+id/textpass"
+        android:layout_below="@+id/textemail"
+        android:layout_alignLeft="@+id/textemail"
+        android:layout_alignStart="@+id/textemail"
         android:layout_marginTop="48dp"
         android:hint="Password" />
 
