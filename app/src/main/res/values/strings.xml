@@ -12,4 +12,5 @@
         <item>PHYS</item>
         <item>CHEM</item>
     </string-array>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>
