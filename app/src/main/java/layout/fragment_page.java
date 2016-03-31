@@ -198,7 +198,7 @@ public class fragment_page extends Fragment {
                     String email = response.getString("email");
                     String first = response.getString("Firstname");
                     String last =  response.getString("Lastname");
-                    Boolean isadmin = response.getBoolean("Admin");
+                    Boolean isadmin = false;
 
                     //JSONObject phone = response.getJSONObject("phone");
                     //String home = phone.getString("home");

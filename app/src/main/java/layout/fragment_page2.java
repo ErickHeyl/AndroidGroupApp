@@ -178,7 +178,7 @@ public class fragment_page2 extends Fragment {
     private void makeJsonArrayRequest() {
 
         showpDialog();
-
+        AppController.getInstance().FullGroupList.clear();
         JsonArrayRequest req = new JsonArrayRequest(urlJsonArry,
                 new Response.Listener<JSONArray>() {
                     @Override
