@@ -104,11 +104,11 @@ public class fragment_page extends Fragment {
 
 
 
-        HashMap<String,String> user = AppController.getInstance().user;
-        if(!user.isEmpty())
-        {
-            userinfo.setText(user.get("name") + "\n\n" + user.get("email"));
-        }
+
+
+            userinfo.setText(AppController.getInstance().AppUser.username + "\n\n" +
+                    AppController.getInstance().AppUser.email);
+
         if(AppController.getInstance().AppUserGroups.size() > 0)
         {
             GroupAdapter adapter2 = new GroupAdapter(getActivity().getApplicationContext(),
@@ -119,11 +119,8 @@ public class fragment_page extends Fragment {
         else {
 
 
-            pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Please wait...");
-            pDialog.setCancelable(false);
 
-            makeJsonObjectRequest();
+            //makeJsonObjectRequest();
             try {
                 makeJsonArrayRequest();
             } catch (JSONException e) {
@@ -174,7 +171,7 @@ public class fragment_page extends Fragment {
     /**
      * Method to make json object request where json response starts wtih {
      * */
-    private void makeJsonObjectRequest() {
+    /*private void makeJsonObjectRequest() {
 
         showpDialog();
 
@@ -238,7 +235,7 @@ public class fragment_page extends Fragment {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(jsonObjReq);
-    }
+    }*/
     //end getjsonobj
 
 
@@ -246,6 +243,9 @@ public class fragment_page extends Fragment {
      * Method to make json array request where response starts with [
      * */
     private void makeJsonArrayRequest() throws JSONException {
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
 
         showpDialog();
 

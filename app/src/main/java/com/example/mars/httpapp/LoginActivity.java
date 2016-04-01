@@ -48,6 +48,35 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+        Button makeacctbutton = (Button) findViewById(R.id.makeacctbutton);
+        makeacctbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                newAccountLogin();
+
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK){
+                //Log.d("log:",getIntent().getStringExtra("email"));
+                String email = data.getStringExtra("email");
+                EditText emailfield = (EditText) findViewById(R.id.textemail);
+                emailfield.setText(email);
+            }
+        }
+    }
+
+    public void newAccountLogin()
+    {
+        Intent intent = new Intent(this, MakeAccountActivity.class);
+        startActivityForResult(intent,1);
     }
 
     private void showpDialog() {
@@ -130,5 +159,6 @@ public class LoginActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(jsonObjReq);
     }
     //end getjsonobj
+
 
 }
