@@ -47,7 +47,7 @@ public class GroupAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public StudyGroup getItem(int position) {
         return groupslist.get(position);
     }
 

@@ -2,6 +2,7 @@ package layout;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -134,9 +135,6 @@ public class fragment_page2 extends Fragment {
                 makeJsonArrayRequest();
 
 
-
-
-
         }
         // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -150,10 +148,11 @@ public class fragment_page2 extends Fragment {
 
                 // ListView Clicked item value
                 //String itemValue = (String) listView.getItemAtPosition(position);
-
+                StudyGroup selectedGroup = (StudyGroup) parent.getAdapter().getItem(itemPosition);
                 // Show Alert
+                //Intent intent = new Intent(this, DisplayBeerInfo.class);
                 Toast.makeText(getActivity().getApplicationContext(),
-                        "Position :" + itemPosition + "  ListItem : ", Toast.LENGTH_LONG)
+                        "Position :" + itemPosition + "  ListItem : " + selectedGroup.department.toString() + " " + selectedGroup.classnumber, Toast.LENGTH_LONG)
                         .show();
 
             }
