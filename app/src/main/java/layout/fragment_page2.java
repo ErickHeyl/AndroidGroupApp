@@ -26,6 +26,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.mars.httpapp.AppController;
 import com.example.mars.httpapp.GroupAdapter;
+import com.example.mars.httpapp.GroupDetailActivity;
 import com.example.mars.httpapp.R;
 import com.example.mars.httpapp.StudyGroup;
 
@@ -63,6 +64,7 @@ public class fragment_page2 extends Fragment {
     // TODO: Rename and change types of parameters
     private int mPage;
     //private String mParam2;
+
 
 
 
@@ -150,7 +152,9 @@ public class fragment_page2 extends Fragment {
                 //String itemValue = (String) listView.getItemAtPosition(position);
                 StudyGroup selectedGroup = (StudyGroup) parent.getAdapter().getItem(itemPosition);
                 // Show Alert
-                //Intent intent = new Intent(this, DisplayBeerInfo.class);
+                Intent intent = new Intent(getActivity(), GroupDetailActivity.class);
+                intent.putExtra("selectedGroup", selectedGroup);
+                startActivity(intent);
                 Toast.makeText(getActivity().getApplicationContext(),
                         "Position :" + itemPosition + "  ListItem : " + selectedGroup.department.toString() + " " + selectedGroup.classnumber, Toast.LENGTH_LONG)
                         .show();
